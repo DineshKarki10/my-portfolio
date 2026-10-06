@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color palette */
+  --color-surface: #0f0b1a;
+  --color-surface-alt: #130e20;
+  --color-ink: #ffffff;
+  --color-muted: #a78bfa;
+  --color-muted-soft: #9ca3af;
+  --color-accent: #8b5cf6;
+  --color-accent-bright: #a855f7;
+
+  /* Typography */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* Layout */
+  --container-site: 80rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* The header is fixed, so the usable viewport starts below it. Padding on
+       the scroll container offsets every anchor jump by the header height,
+       landing each section flush against the top of the visible screen. */
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* scroll-margin would stack on top of scroll-padding and double the offset,
+     so anchor targets are aligned by the scroll container alone. */
+  section[id],
+  div[id] {
+    scroll-margin-top: 0;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-bright);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Terminal-style block cursor that trails the name. */
+  .terminal-caret {
+    display: inline-block;
+    width: 0.6ch;
+    height: 1em;
+    margin-left: 0.08em;
+    background-color: var(--color-accent-bright);
+    animation: terminal-blink 1.1s step-end infinite;
+  }
+
+  @keyframes terminal-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .terminal-caret {
+      animation: none;
+    }
+  }
+}
+
+@layer components {
+  .container-site {
+    width: 100%;
+    max-width: var(--container-site);
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-site {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-site {
+      padding-inline: 2rem;
+    }
+  }
+
+  .glass-card {
+    background-color: color-mix(in srgb, white 3%, transparent);
+    border: 1px solid color-mix(in srgb, white 10%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Print: a pristine white A4 resume, independent of the dark UI. */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 14mm 16mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  /* Site chrome and every section that is not the resume. */
+  #site-header,
+  footer,
+  .resume-no-print,
+  #hero,
+  #projects,
+  #expertise,
+  #contact {
+    display: none !important;
+  }
+
+  #resume {
+    padding: 0 !important;
+  }
+
+  .container-site {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  .resume-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Flatten glassmorphism and glow. */
+  .glass-card,
+  .resume-card {
+    background: #ffffff !important;
+    border: 1px solid #d4d4d8 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Re-map the dark-theme text colours onto a light palette. */
+  .text-ink,
+  .text-white {
+    color: #111111 !important;
+  }
+
+  .text-accent,
+  .text-accent-bright,
+  .resume-period {
+    color: #6d28d9 !important;
+  }
+
+  .text-muted,
+  .text-muted-soft,
+  .text-muted-soft\/60,
+  .text-muted-soft\/70,
+  .text-muted-soft\/80 {
+    color: #4b5563 !important;
+  }
+
+  a.resume-link {
+    color: #1d4ed8 !important;
+  }
+
+  .border-white\/10,
+  .border-accent\/50 {
+    border-color: #d4d4d8 !important;
+  }
+
+  .bg-white\/5 {
+    background-color: #f4f4f5 !important;
+  }
+
+  .resume-timeline::before {
+    background: #d4d4d8 !important;
+  }
+
+  .resume-dot {
+    background: #ffffff !important;
+    border-color: #6d28d9 !important;
+    box-shadow: none !important;
+  }
+
+  .resume-details > li::before {
+    color: #6d28d9 !important;
+  }
+
+  /* Keep short blocks whole across page breaks.
+     Deliberately NOT applied to:
+       - .resume-card  -> the main card is taller than one A4 page, so forcing
+         it intact produces a mostly blank trailing page.
+       - .resume-timeline > li -> these run up to ~50mm. When one straddles a
+         page boundary the avoid rule pushes it down by its own height and
+         cascades everything below it onto a third page. Long entries may
+         split; that is the lesser evil, and normal for a two-page resume. */
+  .resume-card ul > .resume-entry,
+  h3,
+  h4,
+  h5 {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Compact the vertical rhythm.
+     Two things force this: the raw content must fit two A4 pages, AND
+     `break-inside: avoid` can push an entry that straddles a page boundary
+     down by its own height, which shifts everything below it. Both overflow
+     points produce a near-blank third page, so leave real headroom. */
+  .resume-card {
+    padding: 3.5mm !important;
+  }
+
+  #resume .gap-6 {
+    gap: 3.5mm !important;
+  }
+
+  #resume .space-y-4 {
+    row-gap: 3mm !important;
+  }
+
+  #resume .pb-6 {
+    padding-bottom: 4mm !important;
+  }
+
+  #resume h4 + ul,
+  #resume h4 + dl {
+    margin-top: 3.5mm !important;
+  }
+
+  #resume .mt-8 {
+    margin-top: 3.5mm !important;
+  }
+
+  #resume .mt-10 {
+    margin-top: 5mm !important;
+  }
+
+  .resume-timeline {
+    margin-top: 3mm !important;
+  }
+
+  .resume-timeline > li + li {
+    margin-top: 3mm !important;
+  }
+
+  .resume-details {
+    margin-top: 2mm !important;
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  #resume h3 {
+    font-size: 15pt;
+  }
+
+  #resume h5 {
+    font-size: 11.5pt;
+  }
+}
+

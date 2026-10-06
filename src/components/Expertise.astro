@@ -1,0 +1,115 @@
+---
+import {
+  siAmazonwebservices,
+  siCplusplus,
+  siCss,
+  siDocker,
+  siExpress,
+  siGithub,
+  siGit,
+  siHtml5,
+  siJavascript,
+  siMongodb,
+  siMysql,
+  siNodedotjs,
+  siPython,
+  siReact,
+} from 'simple-icons';
+
+/**
+ * Tech stack shown as official brand logos (Simple Icons).
+ * `icon` renders one logo; `icons` renders a multi-logo group.
+ */
+const stack = [
+  { label: 'HTML5', icon: siHtml5 },
+  { label: 'CSS3', icon: siCss },
+  { label: 'JavaScript', icon: siJavascript },
+  { label: 'Git', icon: siGit },
+  { label: 'GitHub', icon: siGithub },
+  { label: 'Python', icon: siPython },
+  { label: 'C++', icon: siCplusplus },
+  { label: 'MongoDB', icon: siMongodb },
+  { label: 'MySQL', icon: siMysql },
+  { label: 'Docker', icon: siDocker },
+  { label: 'AWS', caption: 'Junior AWS Architect', icon: siAmazonwebservices },
+  {
+    label: 'MERN Stack',
+    caption: 'MongoDB · Express · React · Node.js',
+    icons: [siMongodb, siExpress, siReact, siNodedotjs],
+  },
+] as const;
+---
+
+<section id="expertise" class="relative py-16 lg:py-24">
+  <div class="container-site">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">Expertise</h2>
+      <p class="mt-4 text-base text-muted-soft sm:text-lg">
+        The technologies I build with, from interface work to deployment.
+      </p>
+    </div>
+
+    <ul class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      {
+        stack.map((item) => (
+          <li class="expertise-card group flex flex-col items-center justify-center gap-3 rounded-2xl px-4 py-7 text-center transition duration-300 hover:-translate-y-1 hover:border-purple-400/60 hover:shadow-lg hover:shadow-purple-500/10">
+            <span class="expertise-logo">
+              {'icons' in item ? (
+                <span class="grid grid-cols-2 gap-2">
+                  {item.icons.map((icon) => (
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                      <path d={icon.path} fill={`#${icon.hex}`} />
+                    </svg>
+                  ))}
+                </span>
+              ) : (
+                <svg viewBox="0 0 24 24" class="h-9 w-9" aria-hidden="true">
+                  <path d={item.icon.path} fill={`#${item.icon.hex}`} />
+                </svg>
+              )}
+            </span>
+
+            <p class="font-display text-sm font-semibold text-slate-800">{item.label}</p>
+            {'caption' in item && <p class="text-xs leading-snug text-slate-500">{item.caption}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Two layers instead of one flat white tile.
+
+     The tile itself is a soft violet-tinted neutral, which sits in the site's
+     purple palette and is far less glaring than a full white card. Each logo
+     then sits on a small white chip, so the official brand colours render on
+     pure white exactly as the brand intends: a near-black mark (GitHub
+     #181717) stays visible, and the light marks (JavaScript yellow, React
+     cyan) are not washed out any further than they would be on white.
+     Total white area stays small, which is what actually removes the glare. */
+  .expertise-card {
+    background-color: #e6e1f7;
+    border: 1px solid rgb(206 197 233);
+  }
+
+  .expertise-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem;
+    border-radius: 0.75rem;
+    background-color: #ffffff;
+    border: 1px solid rgb(226 232 240);
+    box-shadow: 0 1px 2px rgb(15 11 26 / 0.06);
+  }
+
+  @media print {
+    .expertise-card,
+    .expertise-logo {
+      background-color: #ffffff !important;
+      border-color: #d4d4d8 !important;
+      box-shadow: none !important;
+    }
+  }
+</style>

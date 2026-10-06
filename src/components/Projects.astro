@@ -1,0 +1,75 @@
+---
+import { projects } from '../data/projects';
+---
+
+<section id="projects" class="relative py-16 lg:py-24">
+  <div class="container-site">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+        Projects
+      </h2>
+      <p class="mt-4 text-base text-muted-soft sm:text-lg">
+        A selection of things I have built while learning machine learning, data engineering and
+        how to ship models that survive contact with production.
+      </p>
+    </div>
+
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.map((project, index) => (
+          <li class="group glass-card flex flex-col rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:bg-white/[0.05]">
+            <div class="flex items-start justify-between gap-4">
+              <span class="font-display text-sm font-semibold tabular-nums text-muted-soft/60">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span class="rounded-full border border-white/10 px-2.5 py-1 font-display text-[11px] font-semibold uppercase tracking-widest text-muted-soft transition duration-300 group-hover:border-accent/40 group-hover:text-accent-bright">
+                {project.tags[0]}
+              </span>
+            </div>
+
+            <h3 class="mt-5 text-xl font-semibold leading-snug transition-colors duration-300 group-hover:text-accent-bright">
+              {project.title}
+            </h3>
+
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted-soft">
+              {project.description}
+            </p>
+
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li class="rounded-full bg-white/5 px-3 py-1 text-xs text-muted-soft">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 flex items-center gap-5 border-t border-white/10 pt-4 font-display text-sm font-semibold">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="-my-2 inline-flex min-h-11 items-center py-2 text-white transition-colors duration-300 hover:text-accent-bright"
+              >
+                GitHub
+                <span class="sr-only"> repository for {project.title}</span>
+              </a>
+              {
+                project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="-my-2 inline-flex min-h-11 items-center py-2 text-muted-soft transition-colors duration-300 hover:text-accent-bright"
+                  >
+                    Live Demo
+                    <span class="sr-only"> for {project.title}</span>
+                  </a>
+                )
+              }
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

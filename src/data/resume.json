@@ -1,0 +1,97 @@
+{
+  "basics": {
+    "name": "Dinesh Karki",
+    "title": "Computer Science Undergraduate specializing in Artificial Intelligence",
+    "location": "Kathmandu, Nepal",
+    "email": "dev.dinesh.karki@gmail.com",
+    "phone": "+977 9820263775",
+    "github": "https://github.com/DineshKarki10",
+    "linkedin": "https://www.linkedin.com/in/dinesh-karki-",
+    "summary": "I am Cmputer Science undergraduate focused on machine learning and data engineering. Comfortable taking a dataset from raw ingestion through model training to a deployed, monitored service."
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "institution": "King's College",
+      "location": "Kathmandu, Nepal",
+      "start": "2024",
+      "end": "Present",
+      "details": [
+        "Specialization in Artificial Intelligence and Data Science",
+        "Core coursework: Machine Learning, Deep Learning, Data Mining, Computer Vision, Databases",
+        "Final-year project: comparative study of transformer models for low-resource text classification"
+      ]
+    },
+    {
+      "degree": "Higher Secondary (Science)",
+      "institution": "Times College",
+      "location": "Kathmandu, Nepal",
+      "start": "2022",
+      "end": "2024",
+      "details": ["Distinction in Mathematics and Computer Science", "Science club lead"]
+    }
+  ],
+  "experience": [
+    {
+      "role": "Freelance Data Analyst",
+      "company": "Independent",
+      "location": "Remote",
+      "start": "2025",
+      "end": "Present",
+      "details": [
+        "Delivered interactive dashboards in Python and Plotly for small businesses tracking sales and inventory",
+        "Wrote SQL queries and ETL scripts to consolidate client data from spreadsheets and CRMs into Postgres"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Neural Sentiment Analyzer",
+      "description": "Transformer-based review classifier with a live Streamlit dashboard for drift monitoring.",
+      "tech": "Python, PyTorch, Transformers",
+      "github": "https://github.com/DineshKarki10/neural-sentiment-analyzer"
+    },
+    {
+      "title": "ETL Pipeline for Retail Data",
+      "description": "Scheduled ETL pipeline validating schemas and loading star-schema tables into Postgres.",
+      "tech": "Python, Pandas, SQL, Airflow",
+      "github": "https://github.com/DineshKarki10/retail-etl-pipeline"
+    },
+    {
+      "title": "CNN Image Classifier",
+      "description": "ResNet fine-tuning for medical images, with Grad-CAM visualisations of each prediction.",
+      "tech": "Python, TensorFlow, OpenCV",
+      "github": "https://github.com/DineshKarki10/cnn-image-classifier"
+    }
+  ],
+  "references": {
+    "note": "Senior professionals who have worked closely with me and can speak first-hand to my skills and work.",
+    "people": [
+      {
+        "name": "Prashanna Dhami",
+        "designation": "Full Stack Developer",
+        "organization": "Future Store",
+        "phone": "+977 9842724655",
+        "email": "prashannadhami059@gmail.com"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["Python", "SQL", "JavaScript", "Bash"]
+    },
+    {
+      "category": "AI & ML",
+      "items": ["PyTorch", "TensorFlow", "Scikit-learn", "Pandas", "NumPy", "Hugging Face Transformers"]
+    },
+    {
+      "category": "Data Engineering",
+      "items": ["ETL Pipelines", "PostgreSQL", "Data Cleaning", "Airflow", "Apache Spark"]
+    },
+    {
+      "category": "Cloud & Tools",
+      "items": ["AWS", "Docker", "Git", "Linux", "Streamlit", "Jupyter"]
+    }
+  ]
+}

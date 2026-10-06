@@ -1,0 +1,212 @@
+---
+import { site } from '../data/site';
+
+const phrases = [
+  "I'm an AI Engineer",
+  'I build intelligent systems',
+  'I turn data into decisions',
+];
+
+// Initials for the monogram fallback, e.g. "Dinesh Karki" -> "DK".
+const initials = site.author
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((part) => part[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<section id="hero" class="relative overflow-hidden">
+  <div
+    class="container-site grid items-center gap-16 pb-16 pt-10 lg:grid-cols-2 lg:gap-12 lg:pb-24 lg:pt-14"
+  >
+    <div class="relative flex justify-center">
+      <div
+        class="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600 opacity-40 blur-[100px]"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="relative h-64 w-64 sm:h-80 sm:w-80">
+        <div
+          class="absolute inset-0 flex items-center justify-center rounded-3xl border border-white/10 bg-gradient-to-br from-purple-950 via-surface-alt to-purple-900/40 font-mono text-4xl font-bold text-muted sm:text-5xl"
+          aria-hidden="true"
+        >
+          {initials}
+        </div>
+
+        <div
+          class="absolute -inset-1 rounded-[1.9rem] bg-gradient-to-br from-accent/50 via-accent-bright/25 to-sky-400/40 blur-lg"
+          aria-hidden="true"
+        >
+        </div>
+
+        <img
+          data-portrait
+          src={site.portrait}
+          alt={`Portrait of ${site.author}`}
+          width="640"
+          height="640"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="relative h-full w-full rounded-3xl border border-white/10 object-cover shadow-2xl"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <p class="text-base text-muted-soft sm:text-lg">A Computer Science Student who</p>
+
+      <h1 class="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+        Builds
+        <span class="relative inline-block whitespace-nowrap text-accent-bright">
+          <span class="relative z-10">Intelligent</span>
+          <svg
+            class="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+            viewBox="0 0 300 70"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="hero-underline"
+              d="M10 46 C 70 16, 150 8, 290 30"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+              vector-effect="non-scaling-stroke"
+            ></path>
+          </svg>
+        </span>
+        AI Models
+      </h1>
+
+      <p class="text-lg text-muted sm:text-xl">Because data drives the future.</p>
+
+      <p class="flex items-center gap-1 font-display text-base text-accent sm:text-lg">
+        <span class="text-muted-soft" aria-hidden="true">&gt;</span>
+        <span id="typed-text" class="text-white" data-phrases={JSON.stringify(phrases)} aria-hidden="true"></span
+        ><span id="typed-cursor" class="typed-cursor" aria-hidden="true"></span>
+        <span class="sr-only">I'm an AI Engineer</span>
+      </p>
+
+      <p class="max-w-xl text-base leading-relaxed text-muted-soft">
+        CS Undergraduate majoring in AI. I work across machine learning, data pipelines and model
+        deployment, turning raw datasets into systems that actually make decisions.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 pt-2">
+        <a
+          href="#projects"
+          class="rounded-full bg-accent px-6 py-3 font-display text-sm font-semibold text-white transition duration-300 hover:bg-accent-bright hover:shadow-[0_0_30px_-5px_#a855f7]"
+        >
+          View Projects
+        </a>
+        <a
+          href="#resume"
+          class="rounded-full border border-white/15 px-6 py-3 font-display text-sm font-semibold text-white transition duration-300 hover:border-accent/60 hover:bg-white/5"
+        >
+          Resume
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-underline {
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    animation: hero-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  }
+
+  @keyframes hero-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .typed-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background-color: var(--color-accent-bright);
+    animation: typed-blink 1s step-end infinite;
+  }
+
+  @keyframes typed-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-underline,
+    .typed-cursor {
+      animation: none;
+    }
+
+    .hero-underline {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var target = document.getElementById('typed-text');
+    if (!target) return;
+
+    var phrases = JSON.parse(target.dataset.phrases || '[]');
+    if (!phrases.length) return;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      target.textContent = phrases[0];
+      return;
+    }
+
+    var phraseIndex = 0;
+    var charIndex = 0;
+    var deleting = false;
+
+    var tick = function () {
+      var phrase = phrases[phraseIndex];
+      charIndex += deleting ? -1 : 1;
+      target.textContent = phrase.slice(0, charIndex);
+
+      var delay = deleting ? 40 : 75;
+
+      if (!deleting && charIndex === phrase.length) {
+        deleting = true;
+        delay = 1600;
+      } else if (deleting && charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        delay = 400;
+      }
+
+      setTimeout(tick, delay);
+    };
+
+    setTimeout(tick, 900);
+  })();
+</script>
+
+<script is:inline>
+  // If the portrait file is missing, hide the <img> so the initials
+  // monogram underneath shows instead of a broken-image icon.
+  (function () {
+    document.querySelectorAll('[data-portrait]').forEach(function (img) {
+      var hide = function () {
+        img.classList.add('hidden');
+      };
+      // The load may already have failed before this script runs.
+      if (img.complete && img.naturalWidth === 0) hide();
+      else img.addEventListener('error', hide);
+    });
+  })();
+</script>

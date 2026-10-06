@@ -1,0 +1,20 @@
+---
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/10">
+  <div class="container-site flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
+    <p class="text-sm text-muted-soft">
+      &copy; {year} {site.author}
+    </p>
+
+    <a
+      href="#top"
+      class="-my-2 inline-block py-2 font-display text-xs font-semibold uppercase tracking-widest text-muted-soft transition-colors duration-300 hover:text-accent-bright"
+    >
+      Back to top
+    </a>
+  </div>
+</footer>
