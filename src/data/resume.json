@@ -46,22 +46,22 @@
   ],
   "projects": [
     {
-      "title": "Neural Sentiment Analyzer",
-      "description": "Transformer-based review classifier with a live Streamlit dashboard for drift monitoring.",
-      "tech": "Python, PyTorch, Transformers",
-      "github": "https://github.com/DineshKarki10/neural-sentiment-analyzer"
+      "title": "Customer Churn Prediction",
+      "description": "A machine learning model that predicts customer churn based on historical data, with a live Streamlit dashboard for drift monitoring.",
+      "tech": "Python, Scikit-learn, Streamlit",
+      "github": "https://github.com/DineshKarki10/customer-churn-prediction"
     },
     {
-      "title": "ETL Pipeline for Retail Data",
-      "description": "Scheduled ETL pipeline validating schemas and loading star-schema tables into Postgres.",
+      "title": "Ecommerce ETL Pipeline",
+      "description": "Scheduled ETL pipeline validating schemas and loading star-schema tables into supabase.",
       "tech": "Python, Pandas, SQL, Airflow",
-      "github": "https://github.com/DineshKarki10/retail-etl-pipeline"
+      "github": "https://github.com/DineshKarki10/ecommerce-etl-pipeline"
     },
     {
-      "title": "CNN Image Classifier",
-      "description": "ResNet fine-tuning for medical images, with Grad-CAM visualisations of each prediction.",
-      "tech": "Python, TensorFlow, OpenCV",
-      "github": "https://github.com/DineshKarki10/cnn-image-classifier"
+      "title": "Neural Sentiment Analyzer",
+      "description": "A transformer-based classifier that labels customer reviews from scraped product data, with a live Streamlit dashboard for drift monitoring.",
+      "tech": "Python, PyTorch, Transformers, Streamlit",
+      "github": "https://github.com/DineshKarki10/neural-sentiment-analyzer"
     }
   ],
   "references": {
